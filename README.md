@@ -1,0 +1,1 @@
+# go-freeipa-example
