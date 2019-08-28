@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	config.Init("config.json")
 	client := &ldap.LDAPClient{
 		Base: config.Cfg.Base,
 		Host: config.Cfg.Host,
