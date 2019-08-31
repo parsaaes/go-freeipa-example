@@ -1,0 +1,7 @@
+{
+  "base": "dc=example,dc=com",
+  "host": "ldap.forumsys.com",
+  "port": 389,
+  "debug-user": "riemann",
+  "debug-pass": "password"
+}
