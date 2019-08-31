@@ -11,15 +11,15 @@ var Cfg Config
 
 // Config contains the server configuration
 type Config struct {
-	Attributes   []string `json:"attributes"`
-	Base         string   `json:"base"`
-	Host         string   `json:"host"`
-	Port         int      `json:"port"`
-	BindDN       string   `json:"bind_dn"`
-	BindPassword string   `json:"bind_password"`
-	UserFilter   string   `json:"user_filter"`
-	SkipTLS      bool     `json:"skip_tls"`
-	UseSSL       bool     `json:"use_ssl"`
+	Attributes   []string `mapstructure:"attributes"`
+	Base         string   `mapstructure:"base"`
+	Host         string   `mapstructure:"host"`
+	Port         int      `mapstructure:"port"`
+	BindDN       string   `mapstructure:"bind_dn"`
+	BindPassword string   `mapstructure:"bind_password"`
+	UserFilter   string   `mapstructure:"user_filter"`
+	SkipTLS      bool     `mapstructure:"skip_tls"`
+	UseSSL       bool     `mapstructure:"use_ssl"`
 }
 
 // Init initializes global configuration
