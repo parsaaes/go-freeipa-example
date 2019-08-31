@@ -1,28 +1,34 @@
 package config
 
 import (
-	"github.com/spf13/viper"
 	"log"
+
+	"github.com/spf13/viper"
 )
 
+// Cfg is a global configuration object
 var Cfg Config
 
+// Config contains the server configuration
 type Config struct {
-	Base string
-	Host string
-	Port int
-	User string
-	Pass string
+	Attributes   []string `json:"attributes"`
+	Base         string   `json:"base"`
+	Host         string   `json:"host"`
+	Port         int      `json:"port"`
+	BindDN       string   `json:"bind_dn"`
+	BindPassword string   `json:"bind_password"`
+	UserFilter   string   `json:"user_filter"`
+	SkipTLS      bool     `json:"skip_tls"`
+	UseSSL       bool     `json:"use_ssl"`
 }
 
+// Init initializes global configuration
 func Init(path string) {
 	viper.SetConfigFile(path)
 	if err := viper.ReadInConfig(); err != nil {
-		log.Fatalf("Error reading config file, %s", err)
+		log.Fatalf("error on reading config file: %s", err)
 	}
-	Cfg.Base = viper.GetString("base")
-	Cfg.Host = viper.GetString("host")
-	Cfg.Port = viper.GetInt("port")
-	Cfg.User = viper.GetString("debug-user")
-	Cfg.Pass = viper.GetString("debug-pass")
+	if err := viper.Unmarshal(&Cfg); err != nil {
+		log.Fatalf("error on unmarshaling config file: %s", err)
+	}
 }
