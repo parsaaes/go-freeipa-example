@@ -1,5 +1,4 @@
 {
-  "base": "",
   "attributes": ["uid", "ou", "cn"],
   "bind_dn": "cn=read-only-admin,dc=example,dc=com",
   "bind_password": "password",
