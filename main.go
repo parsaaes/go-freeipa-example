@@ -1,26 +1,39 @@
 package main
 
 import (
+	"flag"
+	"log"
+
 	"github.com/jtblin/go-ldap-client"
 	"github.com/parsaaes/go-freeipa-example/config"
-	"log"
 )
 
 func main() {
 	config.Init("config.json")
+
+	username := flag.String("username", "riemann", "LDAP username")
+	password := flag.String("password", "password", "LDAP password")
+	flag.Parse()
+
 	client := &ldap.LDAPClient{
-		Base: config.Cfg.Base,
-		Host: config.Cfg.Host,
-		Port: config.Cfg.Port,
+		Attributes:   config.Cfg.Attributes,
+		Base:         config.Cfg.Base,
+		BindDN:       config.Cfg.BindDN,
+		BindPassword: config.Cfg.BindPassword,
+		Host:         config.Cfg.Host,
+		UserFilter:   config.Cfg.UserFilter,
+		Port:         config.Cfg.Port,
+		UseSSL:       config.Cfg.UseSSL,
+		SkipTLS:      config.Cfg.SkipTLS,
 	}
 	defer client.Close()
 
-	ok, user, err := client.Authenticate(config.Cfg.User, config.Cfg.Pass)
+	ok, userAttr, err := client.Authenticate(*username, *password)
 	if err != nil {
-		log.Fatalf("Error authenticating user %s: %+v", config.Cfg.User, err)
+		log.Fatalf("Error authenticating user %s: %+v", *username, err)
 	}
 	if !ok {
-		log.Fatalf("Authenticating failed for user %s", config.Cfg.User)
+		log.Fatalf("Authenticating failed for user %s", *username)
 	}
-	log.Printf("User: %+v", user)
+	log.Printf("User LDAP Attributes: %+v", userAttr)
 }

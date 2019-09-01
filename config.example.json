@@ -1,0 +1,12 @@
+{
+  "base": "",
+  "attributes": ["uid", "ou", "cn"],
+  "bind_dn": "cn=read-only-admin,dc=example,dc=com",
+  "bind_password": "password",
+  "base": "dc=example,dc=com",
+  "host": "ldap.forumsys.com",
+  "port": 389,
+  "user_filter": "(uid=%s)",
+  "skip_tls": true,
+  "use_ssl": false
+}
